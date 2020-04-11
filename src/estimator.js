@@ -25,7 +25,9 @@ const covid19ImpactEstimator = (data) => {
 
   // infection by requested time
   result.impact.infectionsByRequestedTime = Math.trunc(result.impact.currentlyInfected * days);
-  result.severeImpact.infectionsByRequestedTime = Math.trunc(result.severeImpact.currentlyInfected * days);
+  result.severeImpact.infectionsByRequestedTime = Math.trunc(
+    result.severeImpact.currentlyInfected * days
+  );
 
   // severe cases by requested time
   result.impact.severeCasesByRequestedTime = Math.trunc(
@@ -68,18 +70,18 @@ const covid19ImpactEstimator = (data) => {
 };
 
 
-// const data = {
-//   region: {
-//     name: 'Africa',
-//     avgAge: 19.7,
-//     avgDailyIncomeInUSD: 5,
-//     avgDailyIncomePopulation: 0.71
-//   },
-//   periodType: 'days',
-//   timeToElapse: 58,
-//   reportedCases: 674,
-//   population: 66622705,
-//   totalHospitalBeds: 1380614
-// };
-// console.log(covid19ImpactEstimator(data));
+const data = {
+  region: {
+    name: 'Africa',
+    avgAge: 19.7,
+    avgDailyIncomeInUSD: 5,
+    avgDailyIncomePopulation: 0.71
+  },
+  periodType: 'days',
+  timeToElapse: 58,
+  reportedCases: 674,
+  population: 66622705,
+  totalHospitalBeds: 1380614
+};
+console.log(covid19ImpactEstimator(data));
 export default covid19ImpactEstimator;
