@@ -1,5 +1,19 @@
+// normalize the duration to days
+const normalizeToDays = (data) => {
+  let days;
+  if (data.periodType === 'days') {
+    days = 2 ** (Math.floor(data.timeToElapse / 3));
+  } else if (data.periodType === 'weeks') {
+    days = 2 ** (Math.floor((data.timeToElapse * 7) / 3));
+  } else {
+    days = 2 ** (Math.floor((data.timeToElapse * 30) / 3));
+  }
+  return days;
+};
+
 const covid19ImpactEstimator = (data) => {
   const input = data;
+  const days = normalizeToDays(data);
   const result = {
     data: input, // the input data you got
     impact: {}, // your best case estimation
@@ -10,8 +24,8 @@ const covid19ImpactEstimator = (data) => {
   result.severeImpact.currentlyInfected = data.reportedCases * 50;
 
   // infection by requested time
-  result.impact.infectionsByRequestedTime = result.impact.currentlyInfected * 512;
-  result.severeImpact.infectionsByRequestedTime = result.severeImpact.currentlyInfected * 512;
+  result.impact.infectionsByRequestedTime = result.impact.currentlyInfected * days;
+  result.severeImpact.infectionsByRequestedTime = result.severeImpact.currentlyInfected * days;
 
   // severe cases by requested time
   result.impact.severeCasesByRequestedTime = 0.15 * result.impact.infectionsByRequestedTime;
@@ -44,6 +58,7 @@ const covid19ImpactEstimator = (data) => {
   return result;
 };
 
+
 // const data = {
 //   region: {
 //     name: 'Africa',
@@ -57,5 +72,5 @@ const covid19ImpactEstimator = (data) => {
 //   population: 66622705,
 //   totalHospitalBeds: 1380614
 // };
-// covid19ImpactEstimator(data);
+// console.log(covid19ImpactEstimator(data));
 export default covid19ImpactEstimator;
