@@ -41,17 +41,21 @@ const covid19ImpactEstimator = (data) => {
 
   // cases for ICU by requested time
   result.impact.casesForICUByRequestedTime = parseInt(
-    (0.05 * result.impact.infectionsByRequestedTime), 0
+    result.impact.infectionsByRequestedTime - (0.05 * result.impact.infectionsByRequestedTime), 0
   );
-  result.severeImpact.casesForICUByRequestedTime = parseInt(0.05
-    * result.severeImpact.infectionsByRequestedTime, 0);
+  result.severeImpact.casesForICUByRequestedTime = parseInt(
+    result.severeImpact.infectionsByRequestedTime - (0.05
+    * result.severeImpact.infectionsByRequestedTime), 0
+  );
 
   // cases for ventilators by requested time
   result.impact.casesForVentilatorsByRequestedTime = parseInt(
-    (0.02 * result.impact.infectionsByRequestedTime), 0
+    result.impact.infectionsByRequestedTime - (0.02 * result.impact.infectionsByRequestedTime), 0
   );
-  result.severeImpact.casesForVentilatorsByRequestedTime = parseInt(0.02
-    * result.severeImpact.infectionsByRequestedTime, 0);
+  result.severeImpact.casesForVentilatorsByRequestedTime = parseInt(
+    result.severeImpact.infectionsByRequestedTime - (0.02
+    * result.severeImpact.infectionsByRequestedTime), 0
+  );
 
   // dollars in flight
   result.impact.dollarsInFlight = result.impact.infectionsByRequestedTime
