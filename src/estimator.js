@@ -4,9 +4,9 @@ const normalizeToDays = (data) => {
   if (data.periodType === 'days') {
     days = 2 ** (Math.floor(data.timeToElapse / 3));
   } else if (data.periodType === 'weeks') {
-    days = 2 ** (Math.floor((data.timeToElapse * 7) / 3));
+    days = 2 ** (Math.trunc((data.timeToElapse * 7) / 3));
   } else {
-    days = 2 ** (Math.floor((data.timeToElapse * 30) / 3));
+    days = 2 ** (Math.trunc((data.timeToElapse * 30) / 3));
   }
   return days;
 };
@@ -57,9 +57,9 @@ const covid19ImpactEstimator = (data) => {
 
   // dollars in flight
   result.impact.dollarsInFlight = Math.trunc((result.impact.infectionsByRequestedTime
-  * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) * days);
+  * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) / days);
   result.severeImpact.dollarsInFlight = Math.trunc((result.severeImpact.infectionsByRequestedTime
-  * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) * days);
+  * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) / days);
 
   return result;
 };
