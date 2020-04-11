@@ -34,9 +34,9 @@ const covid19ImpactEstimator = (data) => {
 
   // hospital beds by requested time
   result
-    .impact.hospitalBedsByRequestedTime = Math.round((0.35 * data.totalHospitalBeds)
+    .impact.hospitalBedsByRequestedTime = Math.floor((0.35 * data.totalHospitalBeds)
      - result.impact.severeCasesByRequestedTime);
-  result.severeImpact.hospitalBedsByRequestedTime = Math.round((0.35 * data.totalHospitalBeds)
+  result.severeImpact.hospitalBedsByRequestedTime = Math.floor((0.35 * data.totalHospitalBeds)
   - result.severeImpact.severeCasesByRequestedTime);
 
   // cases for ICU by requested time
@@ -51,9 +51,9 @@ const covid19ImpactEstimator = (data) => {
 
   // dollars in flight
   result.impact.dollarsInFlight = result.impact.infectionsByRequestedTime
-  * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * 30;
+  * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * days;
   result.severeImpact.dollarsInFlight = result.severeImpact.infectionsByRequestedTime
-  * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * 30;
+  * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD * days;
 
   return result;
 };
